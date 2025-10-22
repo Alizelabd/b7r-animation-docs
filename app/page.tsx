@@ -1,6 +1,7 @@
 "use client";
 
-import { AnimateOnScroll, AnimationItem } from "@/components/animate-on-scroll";
+import { AnimateOnScroll } from "@/components/animation/AnimateOnScroll";
+import { AnimationItem } from "@/components/animation/AnimationItem";
 import { CodeBlock } from "@/components/code-block";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -168,17 +169,17 @@ export const AnimateOnScroll: React.FC<AnimateOnScrollProps> = ({
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <header className="py-24 text-center">
         <AnimateOnScroll>
-          <AnimationItem sort={1} variant="fromBottom">
+          <AnimationItem duration={0.5}  variant="fromBottom">
             <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text">
               Animate On Scroll
             </h1>
           </AnimationItem>
-          <AnimationItem sort={2} variant="fromBottom">
+          <AnimationItem duration={1} variant="fromBottom">
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
               A beautiful and powerful scroll animation component for React
             </p>
           </AnimationItem>
-          <AnimationItem sort={3} variant="pop">
+          <AnimationItem duration={1.5} variant="pop">
             <Button size="lg" onClick={copyComponentCode} className="min-w-[200px]">
               {copied ? (
                 <>
@@ -199,10 +200,10 @@ export const AnimateOnScroll: React.FC<AnimateOnScrollProps> = ({
       <main className="container mx-auto px-4 py-16">
         <section className="mb-24">
           <AnimateOnScroll>
-            <AnimationItem sort={1} variant="fromLeft">
+            <AnimationItem duration={1} variant="fromLeft">
               <h2 className="text-4xl font-bold mb-12">Examples</h2>
             </AnimationItem>
-            <AnimationItem sort={2} variant="fade">
+            <AnimationItem duration={2} variant="fade">
               <Tabs defaultValue="basic">
                 <TabsList className="mb-8">
                   <TabsTrigger value="basic">Basic Usage</TabsTrigger>
@@ -252,7 +253,7 @@ export default function Example() {
                       "zoomOut",
                     ].map((variant, index) => (
                       <AnimateOnScroll key={variant}>
-                        <AnimationItem sort={index} variant={variant as any}>
+                        <AnimationItem duration={index} variant={variant as any}>
                           <Card className="p-6">
                             <h3 className="text-xl font-semibold mb-2">{variant}</h3>
                             <p className="text-gray-600 dark:text-gray-300">
@@ -296,10 +297,10 @@ export default function Example() {
 
         <section className="mb-24">
           <AnimateOnScroll>
-            <AnimationItem sort={1} variant="fromLeft">
+            <AnimationItem duration={1} variant="fromLeft">
               <h2 className="text-4xl font-bold mb-12">Developer Setup</h2>
             </AnimationItem>
-            <AnimationItem sort={2} variant="fade">
+            <AnimationItem duration={2} variant="fade">
               <Card className="p-6 mb-8">
                 <div className="flex items-start gap-4 mb-6">
                   <PackageIcon className="w-6 h-6 text-purple-600 flex-shrink-0" />
@@ -345,10 +346,10 @@ export function cn(...inputs: ClassValue[]) {
 
         <section>
           <AnimateOnScroll>
-            <AnimationItem sort={1} variant="fromLeft">
+            <AnimationItem duration={1} variant="fromLeft">
               <h2 className="text-4xl font-bold mb-12">About the Developer</h2>
             </AnimationItem>
-            <AnimationItem sort={2} variant="fade">
+            <AnimationItem duration={2} variant="fade">
               <Card className="p-6">
                 <div className="flex items-start gap-4">
                   <UserIcon className="w-6 h-6 text-purple-600 flex-shrink-0" />
