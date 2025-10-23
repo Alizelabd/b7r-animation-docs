@@ -1,8 +1,6 @@
-import { AnimationProps } from "gsap";
-
 export interface CustomAnimation {
-  from: AnimationProps;
-  to: AnimationProps;
+  from: any;
+  to: any;
 }
 
 /*

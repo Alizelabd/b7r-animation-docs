@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { AnimationItem } from './AnimationItem';
 import gsap from 'gsap';
+import { presets } from './animationPresets';
 
 const getSplitText = (() => {
   let instance: any = null;
@@ -23,7 +24,7 @@ interface AnimateTextProps {
   as?: React.ElementType;
   className?: string;
   type?: TextAnimationType;
-  variant?: AnimationVariant;
+  variant?: keyof typeof presets;
   stagger?: number;
   duration?: number;
   ease?: string;
@@ -39,7 +40,7 @@ export const AnimateText: React.FC<AnimateTextProps> = ({
   duration,
   ease,
 }) => {
-  const textRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement & { split?: any }>(null);
   const childClassName = `split-${type.slice(0, -1)}`;
 
   useGSAP(async () => {
