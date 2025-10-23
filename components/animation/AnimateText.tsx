@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
-import { AnimationItem, AnimationVariant } from './AnimationItem';
+import { AnimationItem } from './AnimationItem';
 import gsap from 'gsap';
 
 const getSplitText = (() => {
