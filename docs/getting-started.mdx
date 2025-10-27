@@ -1,0 +1,240 @@
+---
+title: Getting Started
+description: Learn how to install and set up b7r-animation in your React project.
+---
+
+import { BasicDemo } from "@/components/demos/BasicDemo";
+import { InteractivePlayground } from "@/components/demos/InteractivePlayground";
+
+# Getting Started with b7r-animation
+
+This guide will walk you through setting up the **b7r-animation** component in your React project, from installation to your first animation.
+
+---
+
+## 1. Installation
+
+### Step 1: Install Dependencies
+
+The library requires **GSAP** and **@gsap/react** as peer dependencies. Install them using your package manager:
+
+```bash
+npm install gsap @gsap/react
+# or using Yarn
+yarn add gsap @gsap/react
+# or using pnpm
+pnpm add gsap @gsap/react
+```
+
+### Step 2: Copy Component Files
+
+Since the library is not published to npm, you need to copy the component files into your project.
+
+Copy these files from the [b7r-animation repository](https://github.com/Alizelabd/b7r-animation) to your project (e.g., `src/components/animation/`):
+
+- `AnimateOnScroll.tsx`
+- `AnimationItem.tsx`
+- `AnimateText.tsx`
+- `AnimationContext.tsx`
+- `animationPresets.ts`
+
+**Directory structure example:**
+
+```
+src/
+├── components/
+│   └── animation/
+│       ├── AnimateOnScroll.tsx
+│       ├── AnimationItem.tsx
+│       ├── AnimateText.tsx
+│       ├── AnimationContext.tsx
+│       └── animationPresets.ts
+```
+
+---
+
+## 2. Basic Usage
+
+### Wrap with AnimateOnScroll
+
+The `<AnimateOnScroll>` component is the main provider that initializes the scroll animation context. Wrap your content with it:
+
+```jsx
+import { AnimateOnScroll } from './components/animation/AnimateOnScroll';
+import { AnimationItem } from './components/animation/AnimationItem';
+
+function MyComponent() {
+  return (
+    <AnimateOnScroll>
+      {/* Your animated content goes here */}
+    </AnimateOnScroll>
+  );
+}
+```
+
+### Add AnimationItem Components
+
+Use `<AnimationItem>` to wrap elements you want to animate:
+
+```jsx
+<AnimateOnScroll>
+  <AnimationItem variant="fromTop">
+    <h1>Hello World</h1>
+  </AnimationItem>
+  
+  <AnimationItem variant="pop">
+    <p>This element pops in!</p>
+  </AnimationItem>
+</AnimateOnScroll>
+```
+
+### Choose an Animation Variant
+
+The `variant` prop determines the animation type. Here are the most common ones:
+
+- `fade` - Simple fade in
+- `fromTop` - Slide in from top
+- `fromBottom` - Slide in from bottom
+- `pop` - Scale up effect
+- `rotateIn` - Rotate in effect
+
+See the [Animation Variants](./variants) page for a complete list.
+
+---
+
+## 3. Live Example
+
+Try it yourself! Scroll down to see animations in action:
+
+<BasicDemo />
+
+---
+
+## 4. Customizing Animations
+
+### Duration
+
+Control how long the animation takes:
+
+```jsx
+<AnimationItem variant="pop" duration={1.5}>
+  <div>Takes 1.5 seconds to animate</div>
+</AnimationItem>
+```
+
+### Stagger
+
+Add delays between multiple animations:
+
+```jsx
+<AnimateOnScroll>
+  <AnimationItem variant="pop" stagger={0}>
+    <div>Animates immediately</div>
+  </AnimationItem>
+  
+  <AnimationItem variant="pop" stagger={0.2}>
+    <div>Animates after 0.2 seconds</div>
+  </AnimationItem>
+  
+  <AnimationItem variant="pop" stagger={0.4}>
+    <div>Animates after 0.4 seconds</div>
+  </AnimationItem>
+</AnimateOnScroll>
+```
+
+### Easing
+
+Change the animation curve:
+
+```jsx
+<AnimationItem variant="pop" ease="elastic.out">
+  <div>Bouncy elastic effect</div>
+</AnimationItem>
+```
+
+---
+
+## 5. Interactive Playground
+
+Experiment with different animation properties:
+
+<InteractivePlayground />
+
+---
+
+## 6. Common Patterns
+
+### Animating Lists
+
+Animate each item in a list with stagger:
+
+```jsx
+<AnimateOnScroll>
+  {items.map((item, index) => (
+    <AnimationItem
+      key={item.id}
+      variant="pop"
+      stagger={index * 0.1}
+    >
+      <div>{item.name}</div>
+    </AnimationItem>
+  ))}
+</AnimateOnScroll>
+```
+
+### Animating Text
+
+Use `<AnimateText>` for text effects:
+
+```jsx
+import { AnimateText } from './components/animation/AnimateText';
+
+<AnimateOnScroll>
+  <AnimateText type="chars" variant="fromBottom">
+    Animate each character
+  </AnimateText>
+</AnimateOnScroll>
+```
+
+### Custom Animations
+
+Create unique animations:
+
+```jsx
+<AnimationItem
+  custom={{
+    from: { x: -100, rotate: -180, opacity: 0 },
+    to: { x: 0, rotate: 0, opacity: 1 }
+  }}
+  duration={1.5}
+>
+  <div>Custom slide and spin</div>
+</AnimationItem>
+```
+
+---
+
+## 7. Next Steps
+
+- Explore all [Animation Variants](./variants)
+- Learn about [Advanced Topics](./advanced-topics)
+- Check the [API Reference](./api-reference) for detailed prop documentation
+
+---
+
+## 🎯 Tips for Best Results
+
+1. **Use sensible defaults first** - Start with built-in variants before creating custom animations
+2. **Keep animations subtle** - Animations should enhance, not distract from content
+3. **Test on different devices** - Ensure animations perform well on mobile
+4. **Use stagger for lists** - Creates a more polished, professional look
+5. **Combine with CSS** - Use Tailwind or CSS classes alongside animations
+
+---
+
+## ⚠️ Important Notes
+
+- The library requires **React 18+** and **GSAP 3+**
+- Animations are GPU-accelerated for better performance
+- The `once` prop controls whether animations replay on scroll (default: `true`)
+- Use `debug={true}` on `<AnimateOnScroll>` to visualize scroll trigger points

@@ -1,0 +1,211 @@
+---
+title: Animation Variants
+description: Explore all available animation variants and learn how to create custom ones.
+---
+
+import { VariantsShowcase } from "@/components/demos/VariantsShowcase";
+import { CustomAnimationDemo } from "@/components/demos/CustomAnimationDemo";
+
+# Animation Variants
+
+b7r-animation comes with a collection of powerful, pre-configured animation presets that you can use immediately via the `variant` prop.
+
+---
+
+## 🎬 All Available Variants
+
+### Visual Gallery
+
+Scroll down to see all animation variants in action:
+
+<VariantsShowcase />
+
+---
+
+## 📋 Variant Reference
+
+| Variant | Effect | Best For |
+| :--- | :--- | :--- |
+| `fade` | Fade in from transparent to opaque | Subtle, elegant transitions |
+| `fromTop` | Slide in from top with fade | Headers, hero sections |
+| `fromBottom` | Slide in from bottom with fade | Call-to-action buttons, footers |
+| `fromLeft` | Slide in from left with fade | Sidebar content, left-aligned elements |
+| `fromRight` | Slide in from right with fade | Right-aligned content, modals |
+| `pop` | Scale up from 0.8 with fade | Cards, thumbnails, emphasis |
+| `scaleUp` | Scale up from 0.5 with fade | Large emphasis, hero content |
+| `scaleDown` | Scale down from 1.5 with fade | Zoom-out effects |
+| `rotateIn` | Rotate from -90° with fade | Dynamic, playful animations |
+| `flipX` | Flip around Y-axis with fade | 3D card effects |
+| `flipY` | Flip around X-axis with fade | 3D card effects (vertical) |
+| `zoomOut` | Zoom out from 1.1 scale with fade | Reveal animations |
+
+---
+
+## 💡 How to Use Variants
+
+### Basic Usage
+
+```jsx
+<AnimateOnScroll>
+  <AnimationItem variant="fromTop">
+    <h1>Slides in from top</h1>
+  </AnimationItem>
+</AnimateOnScroll>
+```
+
+### Combining with Props
+
+```jsx
+<AnimationItem
+  variant="pop"
+  duration={1.2}
+  ease="elastic.out"
+>
+  <div>Bouncy pop effect</div>
+</AnimationItem>
+```
+
+### Staggered Variants
+
+```jsx
+{items.map((item, i) => (
+  <AnimationItem
+    key={item.id}
+    variant="fromBottom"
+    stagger={i * 0.1}
+  >
+    {item.content}
+  </AnimationItem>
+))}
+```
+
+---
+
+## 🎨 Custom Animations
+
+If the built-in variants don't meet your needs, create custom animations using the `custom` prop:
+
+### Custom Animation Syntax
+
+```jsx
+<AnimationItem
+  custom={{
+    from: { opacity: 0, scale: 0.5, rotate: -180 },
+    to: { opacity: 1, scale: 1, rotate: 0 }
+  }}
+  duration={1.5}
+>
+  <div>Custom animation</div>
+</AnimationItem>
+```
+
+### Live Examples of Custom Animations
+
+<CustomAnimationDemo />
+
+---
+
+## 🛠️ Creating Reusable Custom Presets
+
+You can add custom presets to `animationPresets.ts` to reuse them across your project:
+
+### Step 1: Edit animationPresets.ts
+
+```typescript
+// animationPresets.ts
+export const presets: Record<string, CustomAnimation> = {
+  // ... existing presets
+
+  // Your custom presets
+  slideAndSpin: {
+    from: { x: -100, rotate: -180, opacity: 0 },
+    to: { x: 0, rotate: 0, opacity: 1 }
+  },
+
+  elasticBounce: {
+    from: { scale: 0, opacity: 0 },
+    to: { scale: 1, opacity: 1 }
+  },
+
+  flip3D: {
+    from: { rotationY: 90, opacity: 0 },
+    to: { rotationY: 0, opacity: 1 }
+  },
+};
+```
+
+### Step 2: Use Your Custom Preset
+
+```jsx
+<AnimationItem variant="slideAndSpin" duration={1.5}>
+  <div>Uses custom preset</div>
+</AnimationItem>
+```
+
+---
+
+## 🎯 Animation Properties You Can Customize
+
+When creating custom animations, you can use any GSAP-compatible property:
+
+### Transform Properties
+- `x`, `y` - Position (in pixels)
+- `scale` - Size multiplier
+- `rotate`, `rotationX`, `rotationY`, `rotationZ` - Rotation (in degrees)
+- `skewX`, `skewY` - Skew effect
+
+### Opacity & Colors
+- `opacity` - Transparency (0-1)
+- `backgroundColor` - Background color
+
+### Size
+- `width`, `height` - Dimensions
+- `borderRadius` - Corner rounding
+
+### Other
+- `duration` - Animation length in seconds
+- `ease` - Easing function (e.g., "power3.out", "elastic.out")
+
+### Example: Complex Custom Animation
+
+```jsx
+<AnimationItem
+  custom={{
+    from: {
+      opacity: 0,
+      scale: 0.5,
+      rotate: -360,
+      x: -200,
+      y: -200,
+    },
+    to: {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      x: 0,
+      y: 0,
+    }
+  }}
+  duration={2}
+  ease="back.out"
+>
+  <div>Complex animation with multiple properties</div>
+</AnimationItem>
+```
+
+---
+
+## ⚡ Performance Tips
+
+1. **Use GPU-accelerated properties**: `transform`, `opacity` are fastest
+2. **Avoid animating**: `width`, `height`, `left`, `top` (use `transform` instead)
+3. **Keep stagger reasonable**: Too many staggered items can impact performance
+4. **Use `once={true}`**: Default behavior is more performant than replaying animations
+
+---
+
+## 🔗 Related Documentation
+
+- [Getting Started](./getting-started) - Basic usage guide
+- [Advanced Topics](./advanced-topics) - Scrub, debug mode, and more
+- [API Reference](./api-reference) - Complete prop documentation

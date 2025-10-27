@@ -1,0 +1,129 @@
+---
+title: Introduction
+description: A powerful, flexible, and lightweight React animation library for creating performant scroll-based and text animations using GSAP and ScrollTrigger.
+---
+
+import { BasicDemo } from "@/components/demos/BasicDemo";
+import { VariantsShowcase } from "@/components/demos/VariantsShowcase";
+
+# Animate On Scroll
+
+**b7r-animation** is a powerful, flexible, and lightweight React animation library for creating performant scroll-based and text animations using GSAP and ScrollTrigger.
+
+Build beautiful, professional entry animations with ease. Whether you're animating elements on scroll, creating text effects, or building complex animation sequences, b7r-animation provides the tools you need.
+
+---
+
+## 🎯 Why Choose b7r-animation?
+
+- **Zero Configuration**: Works out of the box with sensible defaults
+- **Performance First**: Optimized animations that don't block the main thread
+- **Developer Friendly**: Simple, intuitive API with TypeScript support
+- **Highly Customizable**: Create custom animations with full control
+- **Production Ready**: Used in production applications
+- **Small Bundle**: Minimal overhead, only requires GSAP
+
+---
+
+## ✨ Key Features
+
+- **Variety of Animation Variants**: Fade, slide, pop, scale, rotate, flip, and zoom effects
+- **Text Animations**: Split text into chars, words, or lines with staggered animations
+- **Staggered Animations**: Control animation timing via `stagger` prop for fluid motion
+- **Context-Based Architecture**: Provider pattern for flexible animation registration
+- **Customizable Triggers**: Fine-tune animation timing, scroll positions, and easing
+- **Scrub Support**: Create scroll-linked animations that follow scroll position
+- **Debug Mode**: Visual markers to help fine-tune scroll trigger positions
+- **Custom Animations**: Create your own animation presets easily
+
+---
+
+## 🚀 Quick Start
+
+### Installation
+
+```bash
+npm install gsap @gsap/react
+```
+
+### Basic Usage
+
+```jsx
+import { AnimateOnScroll, AnimationItem } from './components/animation';
+
+function App() {
+  return (
+    <AnimateOnScroll>
+      <AnimationItem variant="fromTop">
+        <h1>Hello World</h1>
+      </AnimationItem>
+      <AnimationItem variant="pop">
+        <p>This animates on scroll!</p>
+      </AnimationItem>
+    </AnimateOnScroll>
+  );
+}
+```
+
+---
+
+## 👀 See It In Action
+
+### Basic Animations
+
+<BasicDemo />
+
+### All Animation Variants
+
+<VariantsShowcase />
+
+---
+
+## 📚 Documentation
+
+- **[Getting Started](./getting-started)** - Installation and setup guide
+- **[API Reference](./api-reference)** - Complete component documentation
+- **[Animation Variants](./variants)** - All available animation types
+- **[Advanced Topics](./advanced-topics)** - Scrub, custom animations, and more
+
+---
+
+## 🎨 Animation Variants at a Glance
+
+| Variant | Effect |
+| :--- | :--- |
+| `fade` | Fade in from transparent |
+| `fromTop` | Slide in from top |
+| `fromBottom` | Slide in from bottom |
+| `fromLeft` | Slide in from left |
+| `fromRight` | Slide in from right |
+| `pop` | Scale up with fade |
+| `scaleUp` | Scale up from small |
+| `rotateIn` | Rotate in effect |
+| `flipX` | Flip horizontally |
+| `flipY` | Flip vertically |
+| `zoomOut` | Zoom out effect |
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to:
+
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
+
+---
+
+## 📄 License
+
+MIT © [Alizelabd](https://github.com/Alizelabd)
+
+---
+
+## 🔗 Resources
+
+- **[GitHub Repository](https://github.com/Alizelabd/b7r-animation)** - Source code
+- **[Developer](https://github.com/Alizelabd)** - Creator's GitHub profile
+- **[Twitter](https://x.com/_7coder)** - Follow for updates

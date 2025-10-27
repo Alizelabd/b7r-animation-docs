@@ -1,0 +1,433 @@
+---
+title: Advanced Topics
+description: Master advanced animation techniques including scrub, text splitting, and debugging.
+---
+
+import { StaggerDemo } from "@/components/demos/StaggerDemo";
+import { TextAnimationDemo } from "@/components/demos/TextAnimationDemo";
+
+# Advanced Topics
+
+Explore powerful techniques to create sophisticated animations and optimize your implementation.
+
+---
+
+## 1. Scrub Animation (Scroll-Linked)
+
+The `scrub` prop on `<AnimateOnScroll>` links the animation progress directly to the scroll position, creating scroll-linked animations that follow the user's scroll.
+
+### How It Works
+
+When `scrub` is enabled, the animation plays from the `start` position to the `end` position as the user scrolls. The animation progress is tied to the scroll position, not time.
+
+### Basic Example
+
+```jsx
+<AnimateOnScroll scrub={true} once={false}>
+  <AnimationItem variant="fromLeft">
+    <h1>This animation follows your scroll!</h1>
+  </AnimationItem>
+</AnimateOnScroll>
+```
+
+### Smooth Scrub
+
+Pass a number to `scrub` for smoother animation catch-up:
+
+```jsx
+<AnimateOnScroll scrub={1} once={false}>
+  <AnimationItem variant="fromRight">
+    <div>Smooth scroll-linked animation</div>
+  </AnimationItem>
+</AnimateOnScroll>
+```
+
+The number represents the time (in seconds) for the animation to catch up to the scroll position. Higher values = smoother but slower catch-up.
+
+### Use Cases
+
+- **Parallax effects** - Elements move at different speeds
+- **Progress indicators** - Visual feedback of scroll position
+- **Interactive storytelling** - Animations respond to user scroll
+
+---
+
+## 2. Staggered Animations
+
+Use the `stagger` prop to create cascading animation effects where each element animates with a delay.
+
+### How It Works
+
+The `stagger` prop adds a delay between each animated element, creating a wave-like effect that feels more polished and intentional.
+
+### Live Example
+
+<StaggerDemo />
+
+### Implementation
+
+```jsx
+<AnimateOnScroll>
+  {items.map((item, index) => (
+    <AnimationItem
+      key={item.id}
+      variant="pop"
+      stagger={index * 0.1}  // Each item delayed by 0.1s
+    >
+      {item.content}
+    </AnimationItem>
+  ))}
+</AnimateOnScroll>
+```
+
+### Tips
+
+- **Small stagger values** (0.05-0.15) work best for most cases
+- **Combine with splitTarget** for advanced effects
+- **Use in grids** for professional product showcases
+
+---
+
+## 3. Animating Child Elements with `splitTarget`
+
+The `splitTarget` prop lets you animate specific child elements within a component, useful for complex layouts.
+
+### Syntax
+
+```jsx
+<AnimationItem
+  as="ul"
+  variant="pop"
+  stagger={0.1}
+  splitTarget="li"  // Animate each <li> separately
+>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</AnimationItem>
+```
+
+### How It Works
+
+1. The `splitTarget` prop accepts a CSS selector
+2. All matching elements are animated separately
+3. The `stagger` prop controls the delay between each element
+
+### Advanced Example
+
+```jsx
+<AnimationItem
+  variant="fromBottom"
+  stagger={0.08}
+  splitTarget=".card"
+>
+  <div className="grid grid-cols-3">
+    <div className="card">Card 1</div>
+    <div className="card">Card 2</div>
+    <div className="card">Card 3</div>
+  </div>
+</AnimationItem>
+```
+
+---
+
+## 4. Text Animation Deep Dive
+
+The `<AnimateText>` component provides powerful text animation capabilities by splitting text into smaller units.
+
+### Live Examples
+
+<TextAnimationDemo />
+
+### Text Splitting Types
+
+#### Characters (`type="chars"`)
+Animates each character individually. Perfect for:
+- Typewriter effects
+- Letter-by-letter reveals
+- Detailed animations
+
+```jsx
+<AnimateText
+  type="chars"
+  variant="fromBottom"
+  stagger={0.02}
+  as="h1"
+>
+  Character animation
+</AnimateText>
+```
+
+#### Words (`type="words"`)
+Animates each word. Great for:
+- Headline animations
+- Emphasis on specific words
+- Cleaner, less busy effects
+
+```jsx
+<AnimateText
+  type="words"
+  variant="pop"
+  stagger={0.1}
+  as="h2"
+>
+  Each word animates separately
+</AnimateText>
+```
+
+#### Lines (`type="lines"`)
+Animates each line. Best for:
+- Paragraph animations
+- Multi-line text
+- Flowing narrative effects
+
+```jsx
+<AnimateText
+  type="lines"
+  variant="fromLeft"
+  stagger={0.15}
+  as="p"
+  className="text-lg leading-relaxed"
+>
+  This is a paragraph with multiple lines.
+  Each line will animate separately.
+  Creating a smooth flowing effect.
+</AnimateText>
+```
+
+### Automatic Stagger
+
+If you don't specify `stagger`, it defaults to:
+- `0.02` for characters
+- `0.08` for words
+- `0.08` for lines
+
+```jsx
+<AnimateText type="words" variant="fade">
+  Auto stagger applied
+</AnimateText>
+```
+
+---
+
+## 5. Debug Mode
+
+Use the `debug` prop to visualize ScrollTrigger start and end points while developing.
+
+### Enable Debug Mode
+
+```jsx
+<AnimateOnScroll debug={true}>
+  <AnimationItem variant="fade">
+    <div>Debug markers visible</div>
+  </AnimationItem>
+</AnimateOnScroll>
+```
+
+### What You'll See
+
+- **Green line** - Start position
+- **Red line** - End position
+- **Labels** - Showing trigger positions
+
+### Use Cases
+
+- Fine-tuning `start` and `end` positions
+- Understanding scroll trigger behavior
+- Debugging animation timing issues
+
+### Disable in Production
+
+Remember to remove or conditionally disable debug mode in production:
+
+```jsx
+<AnimateOnScroll debug={process.env.NODE_ENV === 'development'}>
+  {/* content */}
+</AnimateOnScroll>
+```
+
+---
+
+## 6. Configuration Best Practices
+
+### Global Configuration
+
+Set defaults for all animations within a provider:
+
+```jsx
+<AnimateOnScroll
+  config={{
+    duration: 1,
+    start: 'top 80%',
+    ease: 'power2.out'
+  }}
+>
+  {/* All child animations use these defaults */}
+</AnimateOnScroll>
+```
+
+### Override Per Item
+
+Individual items can override global config:
+
+```jsx
+<AnimateOnScroll config={{ duration: 1 }}>
+  <AnimationItem duration={2}>
+    {/* Uses duration: 2, not 1 */}
+  </AnimationItem>
+</AnimateOnScroll>
+```
+
+### Common Configurations
+
+**Fast & Snappy**
+```jsx
+config={{ duration: 0.4, ease: 'power3.out' }}
+```
+
+**Smooth & Elegant**
+```jsx
+config={{ duration: 1.2, ease: 'power2.out' }}
+```
+
+**Playful & Bouncy**
+```jsx
+config={{ duration: 0.8, ease: 'elastic.out' }}
+```
+
+---
+
+## 7. Performance Optimization
+
+### 1. Use `once={true}` (Default)
+
+Animations run only once, better performance:
+
+```jsx
+<AnimateOnScroll once={true}>
+  {/* Animations run once */}
+</AnimateOnScroll>
+```
+
+### 2. Limit Staggered Items
+
+Too many staggered items can impact performance:
+
+```jsx
+// ✅ Good - 6-12 items
+<AnimateOnScroll>
+  {items.slice(0, 12).map((item, i) => (
+    <AnimationItem stagger={i * 0.1} key={item.id}>
+      {item.content}
+    </AnimationItem>
+  ))}
+</AnimateOnScroll>
+
+// ❌ Avoid - 100+ items
+<AnimateOnScroll>
+  {items.map((item, i) => (
+    <AnimationItem stagger={i * 0.1} key={item.id}>
+      {item.content}
+    </AnimationItem>
+  ))}
+</AnimateOnScroll>
+```
+
+### 3. Use GPU-Accelerated Properties
+
+Stick to `transform` and `opacity`:
+
+```jsx
+// ✅ Fast
+custom={{ from: { scale: 0.5, opacity: 0 } }}
+
+// ❌ Slow
+custom={{ from: { width: 0, height: 0 } }}
+```
+
+### 4. Disable Debug in Production
+
+Debug mode has performance overhead:
+
+```jsx
+<AnimateOnScroll debug={process.env.NODE_ENV === 'development'}>
+  {/* content */}
+</AnimateOnScroll>
+```
+
+---
+
+## 8. Common Patterns
+
+### Hero Section with Text Animation
+
+```jsx
+<AnimateOnScroll>
+  <AnimateText
+    type="words"
+    variant="fromBottom"
+    stagger={0.1}
+    as="h1"
+    className="text-5xl font-bold"
+  >
+    Welcome to our amazing product
+  </AnimateText>
+  
+  <AnimationItem variant="fade" stagger={0.5}>
+    <p className="text-xl text-gray-600">
+      Start your journey today
+    </p>
+  </AnimationItem>
+</AnimateOnScroll>
+```
+
+### Product Grid with Stagger
+
+```jsx
+<AnimateOnScroll config={{ start: 'top 70%' }}>
+  <div className="grid grid-cols-3 gap-4">
+    {products.map((product, i) => (
+      <AnimationItem
+        key={product.id}
+        variant="pop"
+        stagger={i * 0.1}
+      >
+        <ProductCard product={product} />
+      </AnimationItem>
+    ))}
+  </div>
+</AnimateOnScroll>
+```
+
+### Scroll-Linked Parallax
+
+```jsx
+<AnimateOnScroll scrub={1} once={false}>
+  <AnimationItem variant="fromTop" custom={{ from: { y: 100 } }}>
+    <div>Parallax layer 1</div>
+  </AnimationItem>
+  
+  <AnimationItem variant="fromTop" custom={{ from: { y: 50 } }}>
+    <div>Parallax layer 2</div>
+  </AnimationItem>
+</AnimateOnScroll>
+```
+
+---
+
+## 🎯 Summary
+
+- **Scrub** for scroll-linked animations
+- **Stagger** for cascading effects
+- **splitTarget** for animating child elements
+- **AnimateText** for text effects
+- **Debug** for development
+- **Optimize** for production
+
+---
+
+## 🔗 Related Documentation
+
+- [Animation Variants](./variants) - All available effects
+- [API Reference](./api-reference) - Complete prop documentation
+- [Getting Started](./getting-started) - Basic setup
