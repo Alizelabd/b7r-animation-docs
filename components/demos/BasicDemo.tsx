@@ -16,29 +16,29 @@ export function BasicDemo() {
         <div className="space-y-6">
           <AnimationItem variant="fromTop">
             <Card className="p-6 bg-white dark:bg-slate-800">
-              <h3 className="text-xl font-bold mb-2">From Top</h3>
-              <p className="text-muted-foreground">This element slides in from the top with a fade effect.</p>
+              <div className="flex items-center space-x-4"><div className="w-8 h-8 bg-blue-500 rounded-full"></div><h3 className="text-xl font-bold">From Top</h3></div>
+              
             </Card>
           </AnimationItem>
 
           <AnimationItem variant="fromBottom">
             <Card className="p-6 bg-white dark:bg-slate-800">
-              <h3 className="text-xl font-bold mb-2">From Bottom</h3>
-              <p className="text-muted-foreground">This element slides in from the bottom with a fade effect.</p>
+              <div className="flex items-center space-x-4"><div className="w-8 h-8 bg-green-500 rounded-full"></div><h3 className="text-xl font-bold">From Bottom</h3></div>
+              
             </Card>
           </AnimationItem>
 
           <AnimationItem variant="pop">
             <Card className="p-6 bg-white dark:bg-slate-800">
-              <h3 className="text-xl font-bold mb-2">Pop Effect</h3>
-              <p className="text-muted-foreground">This element pops in with a scale animation.</p>
+              <div className="flex items-center space-x-4"><div className="w-8 h-8 bg-yellow-500 rounded-full"></div><h3 className="text-xl font-bold">Pop Effect</h3></div>
+              
             </Card>
           </AnimationItem>
 
           <AnimationItem variant="fade">
             <Card className="p-6 bg-white dark:bg-slate-800">
-              <h3 className="text-xl font-bold mb-2">Fade In</h3>
-              <p className="text-muted-foreground">This element simply fades in smoothly.</p>
+              <div className="flex items-center space-x-4"><div className="w-8 h-8 bg-red-500 rounded-full"></div><h3 className="text-xl font-bold">Fade In</h3></div>
+              
             </Card>
           </AnimationItem>
         </div>

@@ -5,17 +5,10 @@ import { useGSAP } from '@gsap/react';
 import { AnimationItem } from './AnimationItem';
 import gsap from 'gsap';
 import { presets } from './animationPresets';
+import { SplitText } from 'gsap/SplitText';
+gsap.registerPlugin(SplitText);
 
-const getSplitText = (() => {
-  let instance: any = null;
-  return async () => {
-    if (instance) return instance;
-    const { SplitText } = await import('gsap/SplitText');
-    gsap.registerPlugin(SplitText);
-    instance = SplitText;
-    return instance;
-  };
-})();
+
 
 type TextAnimationType = 'chars' | 'words' | 'lines';
 
@@ -43,16 +36,17 @@ export const AnimateText: React.FC<AnimateTextProps> = ({
   const textRef = useRef<HTMLDivElement & { split?: any }>(null);
   const childClassName = `split-${type.slice(0, -1)}`;
 
-  useGSAP(async () => {
+  useGSAP(() => {
     if (textRef.current && children) {
-      const SplitText = await getSplitText();
-      if (textRef.current.split) {
-        textRef.current.split.revert();
-      }
-      textRef.current.split = new SplitText(textRef.current, {
+      const SplitTextClass = (window as any).SplitText || SplitText;
+      const split = new SplitTextClass(textRef.current, {
         type,
-        [type + "Class"]: childClassName,
+        [type + 'Class']: childClassName,
       });
+      
+      return () => {
+        split.revert();
+      };
     }
   }, { scope: textRef, dependencies: [children, type] });
 

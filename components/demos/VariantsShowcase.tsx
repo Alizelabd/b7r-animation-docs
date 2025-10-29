@@ -35,9 +35,9 @@ export function VariantsShowcase() {
               variant={variant.name as any}
               stagger={index * 0.05}
             >
-              <Card className="p-6 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 hover:shadow-lg transition-shadow">
-                <div className="flex items-center justify-center h-32 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg mb-4">
-                  <span className="text-white font-bold text-lg">{variant.name}</span>
+              <Card className="p-6 bg-white dark:bg-slate-800 hover:shadow-lg transition-shadow border border-slate-200 dark:border-slate-700">
+                <div className="flex items-center justify-center h-32 mb-4">
+                  <div className="w-20 h-20 bg-primary/80 rounded-xl shadow-xl flex items-center justify-center text-white font-bold text-lg">{variant.name}</div>
                 </div>
                 <h4 className="font-semibold text-foreground">{variant.name}</h4>
                 <p className="text-sm text-muted-foreground mt-1">{variant.description}</p>

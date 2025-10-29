@@ -10,6 +10,7 @@ const navItems = [
   { href: "/docs/api-reference", label: "API Reference", icon: "📚" },
   { href: "/docs/variants", label: "Animation Variants", icon: "✨" },
   { href: "/docs/advanced-topics", label: "Advanced Topics", icon: "🎯" },
+  { href: "/docs/code-generator", label: "Code Generator", icon: "🛠️" },
 ];
 
 export function Sidebar() {
