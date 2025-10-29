@@ -9,6 +9,7 @@ import { InteractivePlayground } from "@/components/demos/InteractivePlayground"
 import { TextAnimationDemo } from "@/components/demos/TextAnimationDemo";
 import { StaggerDemo } from "@/components/demos/StaggerDemo";
 import { CustomAnimationDemo } from "@/components/demos/CustomAnimationDemo";
+import { CodeGenerator } from "@/components/CodeGenerator";
 
 const components: any = {
   CodeBlock,
@@ -18,6 +19,7 @@ const components: any = {
   VariantsShowcase,
   InteractivePlayground,
   TextAnimationDemo,
+  CodeGenerator,
   StaggerDemo,
   CustomAnimationDemo,
   table: (props: any) => <table className="w-full border-collapse" {...props} />,
