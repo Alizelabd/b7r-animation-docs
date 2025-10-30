@@ -73,94 +73,95 @@ export function AnimationBuilder() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-4">">
-        {/* Variant Select */}
-        <div className="space-y-2">
-          <Label htmlFor="variant-select">Variant</Label>
-          <Select
-            value={config.variant}
-            onValueChange={(v) => setConfig({ ...config, variant: v })}
-          >
-            <SelectTrigger id="variant-select">
-              <SelectValue placeholder="Select an animation variant" />
-            </SelectTrigger>
-            <SelectContent>
-              {variants.map((v) => (
-                <SelectItem key={v} value={v}>
-                  {v}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+    <div>
+      <div className="space-y-6">
+        <div className="flex flex-col gap-4">
+          {/* Variant Select */}
+          <div className="space-y-2">
+            <Label htmlFor="variant-select">Variant</Label>
+            <Select
+              value={config.variant}
+              onValueChange={(v) => setConfig({ ...config, variant: v })}
+            >
+              <SelectTrigger id="variant-select">
+                <SelectValue placeholder="Select an animation variant" />
+              </SelectTrigger>
+              <SelectContent>
+                {variants.map((v) => (
+                  <SelectItem key={v} value={v}>
+                    {v}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-        {/* Duration Slider */}
-        <div className="space-y-2">
-          <Label htmlFor="duration-slider">Duration: {config.duration.toFixed(1)}s</Label>
-          <Slider
-            id="duration-slider"
-            min={0.1}
-            max={3.0}
-            step={0.1}
-            value={[config.duration]}
-            onValueChange={(v) => setConfig({ ...config, duration: v[0] })}
-            className="w-full"
-          />
-        </div>
+          {/* Duration Slider */}
+          <div className="space-y-2">
+            <Label htmlFor="duration-slider">Duration: {config.duration.toFixed(1)}s</Label>
+            <Slider
+              id="duration-slider"
+              min={0.1}
+              max={3.0}
+              step={0.1}
+              value={[config.duration]}
+              onValueChange={(v) => setConfig({ ...config, duration: v[0] })}
+              className="w-full"
+            />
+          </div>
 
-        {/* Stagger Slider */}
-        <div className="space-y-2">
-          <Label htmlFor="stagger-slider">Stagger: {config.stagger.toFixed(2)}s</Label>
-          <Slider
-            id="stagger-slider"
-            min={0.0}
-            max={0.5}
-            step={0.01}
-            value={[config.stagger]}
-            onValueChange={(v) => setConfig({ ...config, stagger: v[0] })}
-            className="w-full"
-          />
-        </div>
+          {/* Stagger Slider */}
+          <div className="space-y-2">
+            <Label htmlFor="stagger-slider">Stagger: {config.stagger.toFixed(2)}s</Label>
+            <Slider
+              id="stagger-slider"
+              min={0.0}
+              max={0.5}
+              step={0.01}
+              value={[config.stagger]}
+              onValueChange={(v) => setConfig({ ...config, stagger: v[0] })}
+              className="w-full"
+            />
+          </div>
 
-        {/* Ease Select */}
-        <div className="space-y-2">
-          <Label htmlFor="ease-select">Ease</Label>
-          <Select
-            value={config.ease}
-            onValueChange={(v) => setConfig({ ...config, ease: v })}
-          >
-            <SelectTrigger id="ease-select">
-              <SelectValue placeholder="Select easing function" />
-            </SelectTrigger>
-            <SelectContent>
-              {easingOptions.map((e) => (
-                <SelectItem key={e} value={e}>
-                  {e}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+          {/* Ease Select */}
+          <div className="space-y-2">
+            <Label htmlFor="ease-select">Ease</Label>
+            <Select
+              value={config.ease}
+              onValueChange={(v) => setConfig({ ...config, ease: v })}
+            >
+              <SelectTrigger id="ease-select">
+                <SelectValue placeholder="Select easing function" />
+              </SelectTrigger>
+              <SelectContent>
+                {easingOptions.map((e) => (
+                  <SelectItem key={e} value={e}>
+                    {e}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-        {/* Placeholder for future controls */}
-        <div className="space-y-2">
-          <Label htmlFor="element-count">Element Count</Label>
-          <Input id="element-count" type="number" value={1} disabled />
-        </div>
+          {/* Placeholder for future controls */}
+          <div className="space-y-2">
+            <Label htmlFor="element-count">Element Count</Label>
+            <Input id="element-count" type="number" value={1} disabled />
+          </div>
 
-        {/* Copy Button */}
-        <div className="flex items-end">
-          <Button onClick={handleCopy} disabled={copied} className="w-full">
-            {copied ? (
-              <Check className="mr-2 h-4 w-4" />
-            ) : (
-              <Copy className="mr-2 h-4 w-4" />
-            )}
-            {copied ? "Copied!" : "Copy Code"}
-          </Button>
+          {/* Copy Button */}
+          <div className="flex items-end">
+            <Button onClick={handleCopy} disabled={copied} className="w-full">
+              {copied ? (
+                <Check className="mr-2 h-4 w-4" />
+              ) : (
+                <Copy className="mr-2 h-4 w-4" />
+              )}
+              {copied ? "Copied!" : "Copy Code"}
+            </Button>
+          </div>
         </div>
-      </div>
 
       </div>
 
