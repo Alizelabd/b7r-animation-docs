@@ -38,7 +38,7 @@ export const AnimateText: React.FC<AnimateTextProps> = ({
 
   useGSAP(() => {
     if (textRef.current && children) {
-      const SplitTextClass = (window as any).SplitText || SplitText;
+      const SplitTextClass = SplitText;
       const split = new SplitTextClass(textRef.current, {
         type,
         [type + 'Class']: childClassName,
