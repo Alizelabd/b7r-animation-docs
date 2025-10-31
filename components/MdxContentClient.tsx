@@ -10,6 +10,7 @@ import { TextAnimationDemo } from "@/components/demos/TextAnimationDemo";
 import { StaggerDemo } from "@/components/demos/StaggerDemo";
 import { CustomAnimationDemo } from "@/components/demos/CustomAnimationDemo";
 import { AnimationBuilder } from "@/components/AnimationBuilder";
+import { CustomAnimationCreator } from "@/components/CustomAnimationCreator";
 
 const components: any = {
   CodeBlock,
@@ -22,6 +23,7 @@ const components: any = {
   AnimationBuilder,
   StaggerDemo,
   CustomAnimationDemo,
+  CustomAnimationCreator,
   table: (props: any) => <table className="w-full border-collapse" {...props} />,
   thead: (props: any) => <thead className="bg-muted" {...props} />,
   tbody: (props: any) => <tbody {...props} />,
