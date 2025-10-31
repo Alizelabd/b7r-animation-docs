@@ -1,14 +1,19 @@
 ---
 title: API Reference
+description: Detailed guide to all components and their available properties (props) in b7r-animation.
 ---
 
-# API Reference
+# 📚 API Reference
 
-A detailed guide to all components and their available properties (props).
+A comprehensive guide to all components and their available properties (`props`).
+
+---
 
 ## 1. `<AnimateOnScroll>`
 
 The main provider component that sets up the GSAP ScrollTrigger context for all child animations.
+
+### Props
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -28,8 +33,8 @@ The `config` prop allows overriding the default settings for child animations:
 ```typescript
 {
   duration: 0.8,      // Default animation duration in seconds
-  start: 'top 85%',   // ScrollTrigger start position (e.g., 'top 85%' means when the top of the trigger element hits 85% down the viewport)
-  end: 'bottom 60%',  // ScrollTrigger end position (used for scrub animations)
+  start: 'top 85%',   // ScrollTrigger start position
+  end: 'bottom 60%',  // ScrollTrigger end position (for scrub)
   ease: 'power3.out'  // Default GSAP easing function
 }
 ```
@@ -38,7 +43,9 @@ The `config` prop allows overriding the default settings for child animations:
 
 ## 2. `<AnimationItem>`
 
-Used to wrap an individual element to apply a scroll-triggered animation.
+Used to wrap an individual element to apply a scroll-triggered animation. This is the core component for element animations.
+
+### Props
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -46,27 +53,17 @@ Used to wrap an individual element to apply a scroll-triggered animation.
 | `as` | `React.ElementType` | `'div'` | The HTML element or component type to render. |
 | `className` | `string` | `""` | Additional CSS classes. |
 | `variant` | `AnimationVariant` | `'fade'` | The predefined animation preset to use. See **Animation Variants** section. |
-| `duration` | `number` | `0.8` | Animation duration in seconds (overrides `AnimateOnScroll` config). |
-| `ease` | `string` | `'power3.out'` | GSAP easing function (overrides `AnimateOnScroll` config). |
+| `duration` | `number` | `0.8` | Animation duration in seconds (overrides context config). |
+| `ease` | `string` | `'power3.out'` | GSAP easing function (overrides context config). |
 | `stagger` | `number` | `0` | Delay in seconds between animating child elements (if `splitTarget` is used). |
 | `splitTarget` | `string` | - | CSS selector for elements *within* this component to animate separately (e.g., `.child-element`). |
 | `custom` | `CustomAnimation` | - | A custom GSAP `from` and `to` object to define a unique animation. **Overrides `variant`**. |
 
-### Inline Configuration with Data Attributes
-
-All props (except `children` and `custom`) can be passed as `data-attributes` directly to the rendered element. This is useful for static content or when you prefer a more HTML-like syntax.
-
-| Prop | Data Attribute | Example |
-| :--- | :--- | :--- |
-| `variant` | `data-variant` | `data-variant="fromTop"` |
-| `duration` | `data-duration` | `data-duration="1.5"` |
-| `ease` | `data-ease` | `data-ease="elastic.out"` |
-| `stagger` | `data-stagger` | `data-stagger="0.1"` |
-| `splitTarget` | `data-split-target` | `data-split-target=".word"` |
+### Example Usage
 
 ```jsx
-<AnimationItem as="h1" data-variant="rotateIn" data-duration="1.5">
-  Animated Header
+<AnimationItem variant="rotateIn" duration={1.5} stagger={0.1}>
+  <div className="box">Animated Content</div>
 </AnimationItem>
 ```
 
@@ -74,7 +71,9 @@ All props (except `children` and `custom`) can be passed as `data-attributes` di
 
 ## 3. `<AnimateText>`
 
-A specialized component for animating text by splitting it into characters, words, or lines, and then animating each part sequentially.
+A specialized component for animating text by splitting it into characters, words, or lines.
+
+### Props
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -87,7 +86,10 @@ A specialized component for animating text by splitting it into characters, word
 | `duration` | `number` | `0.8` | Animation duration for each split element. |
 | `ease` | `string` | `'power3.out'` | GSAP easing function. |
 
-### Note on Implementation
+### Example Usage
 
-`<AnimateText>` internally uses GSAP's `SplitText` plugin and passes the necessary configuration to an `<AnimationItem>` component using the `splitTarget` prop. This abstracts the complexity of text splitting for the user.
-
+```jsx
+<AnimateText as="h1" type="words" variant="pop" stagger={0.05}>
+  This text animates word by word.
+</AnimateText>
+```
