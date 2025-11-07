@@ -24,7 +24,7 @@
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 168 76% 42%;
+    --primary: 210 40% 50%; /* A modern, deep blue */
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
@@ -51,7 +51,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 168 76% 52%;
+    --primary: 210 40% 60%; /* A modern, deep blue for dark mode */
     --primary-foreground: 0 0% 9%;
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
@@ -87,11 +87,11 @@
 }
 
 .prose h1 {
-  @apply text-4xl font-bold mt-10 mb-4 text-foreground;
+  @apply text-5xl font-extrabold mt-12 mb-6 text-foreground;
 }
 
 .prose h2 {
-  @apply text-3xl font-bold mt-8 mb-3 border-b pb-2 text-foreground;
+  @apply text-3xl font-bold mt-12 mb-4 text-foreground;
 }
 
 .prose h3 {
@@ -99,7 +99,7 @@
 }
 
 .prose p {
-  @apply leading-7 [&:not(:first-child)]:mt-6 text-foreground;
+  @apply leading-7 [&:not(:first-child)]:mt-4 text-foreground;
 }
 
 .prose ul {
@@ -123,14 +123,14 @@
 }
 
 .prose table {
-  @apply w-full border-collapse;
+  @apply w-full border-collapse border border-border rounded-lg overflow-hidden;
 }
 
 .prose th,
 .prose td {
-  @apply border px-4 py-2 text-left;
+  @apply border-b border-border px-4 py-3 text-left;
 }
 
 .prose th {
-  @apply bg-muted font-semibold;
+  @apply bg-muted/50 font-semibold;
 }
