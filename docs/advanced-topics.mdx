@@ -1,433 +1,300 @@
 ---
 title: Advanced Topics
-description: Master advanced animation techniques including scrub, text splitting, and debugging.
+description: Master scroll-linked and staggered animations
 ---
 
 import { StaggerDemo } from "@/components/demos/StaggerDemo";
 import { TextAnimationDemo } from "@/components/demos/TextAnimationDemo";
 
-# Advanced Topics
+<div className="space-y-12">
 
-Explore powerful techniques to create sophisticated animations and optimize your implementation.
+<div className="space-y-4">
+  <h1 className="text-5xl font-bold">Advanced Topics</h1>
+  <p className="text-xl text-muted-foreground">
+    Master powerful animation techniques
+  </p>
+</div>
 
----
+<div className="space-y-8">
+  <div className="space-y-6">
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
+        <span className="text-2xl">1</span>
+      </div>
+      <h2 className="text-3xl font-bold">Scroll-Linked Animations</h2>
+    </div>
 
-## 1. Scrub Animation (Scroll-Linked)
+    <p className="text-muted-foreground">
+      Link animation progress directly to scroll position using the <code className="text-sm font-mono bg-muted px-2 py-1 rounded">scrub</code> prop
+    </p>
 
-The `scrub` prop on `<AnimateOnScroll>` links the animation progress directly to the scroll position, creating scroll-linked animations that follow the user's scroll.
-
-### How It Works
-
-When `scrub` is enabled, the animation plays from the `start` position to the `end` position as the user scrolls. The animation progress is tied to the scroll position, not time.
-
-### Basic Example
-
-```jsx
-<AnimateOnScroll scrub={true} once={false}>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="space-y-3">
+        <h3 className="text-lg font-semibold">Basic Scrub</h3>
+        <div className="rounded-lg overflow-hidden border bg-muted/50">
+          <pre className="p-4 text-sm"><code>{`<AnimateOnScroll
+  scrub={true}
+  once={false}
+>
   <AnimationItem variant="fromLeft">
-    <h1>This animation follows your scroll!</h1>
+    <h1>Follows your scroll</h1>
   </AnimationItem>
-</AnimateOnScroll>
-```
+</AnimateOnScroll>`}</code></pre>
+        </div>
+      </div>
 
-### Smooth Scrub
-
-Pass a number to `scrub` for smoother animation catch-up:
-
-```jsx
-<AnimateOnScroll scrub={1} once={false}>
+      <div className="space-y-3">
+        <h3 className="text-lg font-semibold">Smooth Scrub</h3>
+        <div className="rounded-lg overflow-hidden border bg-muted/50">
+          <pre className="p-4 text-sm"><code>{`<AnimateOnScroll
+  scrub={1}
+  once={false}
+>
   <AnimationItem variant="fromRight">
-    <div>Smooth scroll-linked animation</div>
+    <div>Smooth catch-up</div>
   </AnimationItem>
-</AnimateOnScroll>
-```
+</AnimateOnScroll>`}</code></pre>
+        </div>
+      </div>
+    </div>
 
-The number represents the time (in seconds) for the animation to catch up to the scroll position. Higher values = smoother but slower catch-up.
+    <div className="rounded-lg border bg-card p-6">
+      <h3 className="font-semibold mb-3">How It Works</h3>
+      <div className="space-y-3 text-sm text-muted-foreground">
+        <p>
+          <strong>scrub={true}</strong> - Animation progress locked to scroll position in real-time
+        </p>
+        <p>
+          <strong>scrub={1}</strong> - Smooth easing with 1 second catch-up time
+        </p>
+        <p>
+          <strong>scrub={0.5}</strong> - Faster catch-up (0.5 seconds)
+        </p>
+      </div>
+    </div>
 
-### Use Cases
+    <div className="rounded-lg border bg-gradient-to-br from-blue-500/5 to-cyan-500/5 p-6">
+      <h4 className="font-semibold mb-2">Use Cases</h4>
+      <ul className="space-y-2 text-sm text-muted-foreground">
+        <li className="flex items-start gap-2">
+          <span className="text-primary mt-1">✓</span>
+          <span>Parallax effects - Elements move at different speeds</span>
+        </li>
+        <li className="flex items-start gap-2">
+          <span className="text-primary mt-1">✓</span>
+          <span>Progress indicators - Visual scroll feedback</span>
+        </li>
+        <li className="flex items-start gap-2">
+          <span className="text-primary mt-1">✓</span>
+          <span>Interactive storytelling - Scroll-responsive content</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-- **Parallax effects** - Elements move at different speeds
-- **Progress indicators** - Visual feedback of scroll position
-- **Interactive storytelling** - Animations respond to user scroll
+  <div className="space-y-6">
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+        <span className="text-2xl">2</span>
+      </div>
+      <h2 className="text-3xl font-bold">Staggered Animations</h2>
+    </div>
 
----
+    <p className="text-muted-foreground">
+      Create cascading wave-like effects with the <code className="text-sm font-mono bg-muted px-2 py-1 rounded">stagger</code> prop
+    </p>
 
-## 2. Staggered Animations
+    <StaggerDemo />
 
-Use the `stagger` prop to create cascading animation effects where each element animates with a delay.
-
-### How It Works
-
-The `stagger` prop adds a delay between each animated element, creating a wave-like effect that feels more polished and intentional.
-
-### Live Example
-
-<StaggerDemo />
-
-### Implementation
-
-```jsx
-<AnimateOnScroll>
+    <div className="rounded-lg border bg-card p-6">
+      <h3 className="font-semibold mb-4">Implementation</h3>
+      <div className="rounded-lg overflow-hidden border bg-muted/50">
+        <pre className="p-4 overflow-x-auto text-sm"><code>{`<AnimateOnScroll>
   {items.map((item, index) => (
     <AnimationItem
       key={item.id}
       variant="pop"
-      stagger={index * 0.1}  // Each item delayed by 0.1s
+      stagger={index * 0.1}
     >
       {item.content}
     </AnimationItem>
   ))}
-</AnimateOnScroll>
-```
+</AnimateOnScroll>`}</code></pre>
+      </div>
+    </div>
 
-### Tips
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="rounded-lg border bg-card p-4">
+        <h4 className="font-semibold mb-2 text-sm">Small Delay</h4>
+        <code className="text-xs bg-muted px-2 py-1 rounded">stagger={0.05}</code>
+        <p className="text-xs text-muted-foreground mt-2">Quick cascade effect</p>
+      </div>
 
-- **Small stagger values** (0.05-0.15) work best for most cases
-- **Combine with splitTarget** for advanced effects
-- **Use in grids** for professional product showcases
+      <div className="rounded-lg border bg-card p-4">
+        <h4 className="font-semibold mb-2 text-sm">Medium Delay</h4>
+        <code className="text-xs bg-muted px-2 py-1 rounded">stagger={0.1}</code>
+        <p className="text-xs text-muted-foreground mt-2">Balanced wave effect</p>
+      </div>
 
----
-
-## 3. Animating Child Elements with `splitTarget`
-
-The `splitTarget` prop lets you animate specific child elements within a component, useful for complex layouts.
-
-### Syntax
-
-```jsx
-<AnimationItem
-  as="ul"
-  variant="pop"
-  stagger={0.1}
-  splitTarget="li"  // Animate each <li> separately
->
-  <li>Item 1</li>
-  <li>Item 2</li>
-  <li>Item 3</li>
-</AnimationItem>
-```
-
-### How It Works
-
-1. The `splitTarget` prop accepts a CSS selector
-2. All matching elements are animated separately
-3. The `stagger` prop controls the delay between each element
-
-### Advanced Example
-
-```jsx
-<AnimationItem
-  variant="fromBottom"
-  stagger={0.08}
-  splitTarget=".card"
->
-  <div className="grid grid-cols-3">
-    <div className="card">Card 1</div>
-    <div className="card">Card 2</div>
-    <div className="card">Card 3</div>
+      <div className="rounded-lg border bg-card p-4">
+        <h4 className="font-semibold mb-2 text-sm">Large Delay</h4>
+        <code className="text-xs bg-muted px-2 py-1 rounded">stagger={0.2}</code>
+        <p className="text-xs text-muted-foreground mt-2">Dramatic effect</p>
+      </div>
+    </div>
   </div>
-</AnimationItem>
-```
 
----
+  <div className="space-y-6">
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
+        <span className="text-2xl">3</span>
+      </div>
+      <h2 className="text-3xl font-bold">Text Animations</h2>
+    </div>
 
-## 4. Text Animation Deep Dive
+    <p className="text-muted-foreground">
+      Animate text by splitting into characters, words, or lines
+    </p>
 
-The `<AnimateText>` component provides powerful text animation capabilities by splitting text into smaller units.
+    <TextAnimationDemo />
 
-### Live Examples
-
-<TextAnimationDemo />
-
-### Text Splitting Types
-
-#### Characters (`type="chars"`)
-Animates each character individually. Perfect for:
-- Typewriter effects
-- Letter-by-letter reveals
-- Detailed animations
-
-```jsx
-<AnimateText
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="space-y-3">
+        <h3 className="text-lg font-semibold">By Characters</h3>
+        <div className="rounded-lg overflow-hidden border bg-muted/50">
+          <pre className="p-4 text-sm"><code>{`<AnimateText
   type="chars"
-  variant="fromBottom"
-  stagger={0.02}
-  as="h1"
->
-  Character animation
-</AnimateText>
-```
-
-#### Words (`type="words"`)
-Animates each word. Great for:
-- Headline animations
-- Emphasis on specific words
-- Cleaner, less busy effects
-
-```jsx
-<AnimateText
-  type="words"
   variant="pop"
-  stagger={0.1}
-  as="h2"
 >
-  Each word animates separately
-</AnimateText>
-```
+  Character by character
+</AnimateText>`}</code></pre>
+        </div>
+        <p className="text-xs text-muted-foreground">Best for short headers</p>
+      </div>
 
-#### Lines (`type="lines"`)
-Animates each line. Best for:
-- Paragraph animations
-- Multi-line text
-- Flowing narrative effects
+      <div className="space-y-3">
+        <h3 className="text-lg font-semibold">By Words</h3>
+        <div className="rounded-lg overflow-hidden border bg-muted/50">
+          <pre className="p-4 text-sm"><code>{`<AnimateText
+  type="words"
+  variant="fromBottom"
+>
+  Word by word effect
+</AnimateText>`}</code></pre>
+        </div>
+        <p className="text-xs text-muted-foreground">Best for sentences</p>
+      </div>
 
-```jsx
-<AnimateText
+      <div className="space-y-3">
+        <h3 className="text-lg font-semibold">By Lines</h3>
+        <div className="rounded-lg overflow-hidden border bg-muted/50">
+          <pre className="p-4 text-sm"><code>{`<AnimateText
   type="lines"
   variant="fromLeft"
-  stagger={0.15}
-  as="p"
-  className="text-lg leading-relaxed"
 >
-  This is a paragraph with multiple lines.
-  Each line will animate separately.
-  Creating a smooth flowing effect.
-</AnimateText>
-```
-
-### Automatic Stagger
-
-If you don't specify `stagger`, it defaults to:
-- `0.02` for characters
-- `0.08` for words
-- `0.08` for lines
-
-```jsx
-<AnimateText type="words" variant="fade">
-  Auto stagger applied
-</AnimateText>
-```
-
----
-
-## 5. Debug Mode
-
-Use the `debug` prop to visualize ScrollTrigger start and end points while developing.
-
-### Enable Debug Mode
-
-```jsx
-<AnimateOnScroll debug={true}>
-  <AnimationItem variant="fade">
-    <div>Debug markers visible</div>
-  </AnimationItem>
-</AnimateOnScroll>
-```
-
-### What You'll See
-
-- **Green line** - Start position
-- **Red line** - End position
-- **Labels** - Showing trigger positions
-
-### Use Cases
-
-- Fine-tuning `start` and `end` positions
-- Understanding scroll trigger behavior
-- Debugging animation timing issues
-
-### Disable in Production
-
-Remember to remove or conditionally disable debug mode in production:
-
-```jsx
-<AnimateOnScroll debug={process.env.NODE_ENV === 'development'}>
-  {/* content */}
-</AnimateOnScroll>
-```
-
----
-
-## 6. Configuration Best Practices
-
-### Global Configuration
-
-Set defaults for all animations within a provider:
-
-```jsx
-<AnimateOnScroll
-  config={{
-    duration: 1,
-    start: 'top 80%',
-    ease: 'power2.out'
-  }}
->
-  {/* All child animations use these defaults */}
-</AnimateOnScroll>
-```
-
-### Override Per Item
-
-Individual items can override global config:
-
-```jsx
-<AnimateOnScroll config={{ duration: 1 }}>
-  <AnimationItem duration={2}>
-    {/* Uses duration: 2, not 1 */}
-  </AnimationItem>
-</AnimateOnScroll>
-```
-
-### Common Configurations
-
-**Fast & Snappy**
-```jsx
-config={{ duration: 0.4, ease: 'power3.out' }}
-```
-
-**Smooth & Elegant**
-```jsx
-config={{ duration: 1.2, ease: 'power2.out' }}
-```
-
-**Playful & Bouncy**
-```jsx
-config={{ duration: 0.8, ease: 'elastic.out' }}
-```
-
----
-
-## 7. Performance Optimization
-
-### 1. Use `once={true}` (Default)
-
-Animations run only once, better performance:
-
-```jsx
-<AnimateOnScroll once={true}>
-  {/* Animations run once */}
-</AnimateOnScroll>
-```
-
-### 2. Limit Staggered Items
-
-Too many staggered items can impact performance:
-
-```jsx
-// ✅ Good - 6-12 items
-<AnimateOnScroll>
-  {items.slice(0, 12).map((item, i) => (
-    <AnimationItem stagger={i * 0.1} key={item.id}>
-      {item.content}
-    </AnimationItem>
-  ))}
-</AnimateOnScroll>
-
-// ❌ Avoid - 100+ items
-<AnimateOnScroll>
-  {items.map((item, i) => (
-    <AnimationItem stagger={i * 0.1} key={item.id}>
-      {item.content}
-    </AnimationItem>
-  ))}
-</AnimateOnScroll>
-```
-
-### 3. Use GPU-Accelerated Properties
-
-Stick to `transform` and `opacity`:
-
-```jsx
-// ✅ Fast
-custom={{ from: { scale: 0.5, opacity: 0 } }}
-
-// ❌ Slow
-custom={{ from: { width: 0, height: 0 } }}
-```
-
-### 4. Disable Debug in Production
-
-Debug mode has performance overhead:
-
-```jsx
-<AnimateOnScroll debug={process.env.NODE_ENV === 'development'}>
-  {/* content */}
-</AnimateOnScroll>
-```
-
----
-
-## 8. Common Patterns
-
-### Hero Section with Text Animation
-
-```jsx
-<AnimateOnScroll>
-  <AnimateText
-    type="words"
-    variant="fromBottom"
-    stagger={0.1}
-    as="h1"
-    className="text-5xl font-bold"
-  >
-    Welcome to our amazing product
-  </AnimateText>
-  
-  <AnimationItem variant="fade" stagger={0.5}>
-    <p className="text-xl text-gray-600">
-      Start your journey today
-    </p>
-  </AnimationItem>
-</AnimateOnScroll>
-```
-
-### Product Grid with Stagger
-
-```jsx
-<AnimateOnScroll config={{ start: 'top 70%' }}>
-  <div className="grid grid-cols-3 gap-4">
-    {products.map((product, i) => (
-      <AnimationItem
-        key={product.id}
-        variant="pop"
-        stagger={i * 0.1}
-      >
-        <ProductCard product={product} />
-      </AnimationItem>
-    ))}
+  Line by line
+  animation effect
+</AnimateText>`}</code></pre>
+        </div>
+        <p className="text-xs text-muted-foreground">Best for paragraphs</p>
+      </div>
+    </div>
   </div>
-</AnimateOnScroll>
-```
 
-### Scroll-Linked Parallax
+  <div className="space-y-6">
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+        <span className="text-2xl">4</span>
+      </div>
+      <h2 className="text-3xl font-bold">Debugging</h2>
+    </div>
 
-```jsx
-<AnimateOnScroll scrub={1} once={false}>
-  <AnimationItem variant="fromTop" custom={{ from: { y: 100 } }}>
-    <div>Parallax layer 1</div>
-  </AnimationItem>
-  
-  <AnimationItem variant="fromTop" custom={{ from: { y: 50 } }}>
-    <div>Parallax layer 2</div>
-  </AnimationItem>
-</AnimateOnScroll>
-```
+    <p className="text-muted-foreground">
+      Use the <code className="text-sm font-mono bg-muted px-2 py-1 rounded">debug</code> prop to visualize scroll trigger markers
+    </p>
 
----
+    <div className="rounded-lg overflow-hidden border bg-muted/50">
+      <pre className="p-4"><code className="text-sm">{`<AnimateOnScroll debug={true}>
+  {/* Your animated content */}
+</AnimateOnScroll>`}</code></pre>
+    </div>
 
-## 🎯 Summary
+    <div className="rounded-lg border bg-card p-6">
+      <h3 className="font-semibold mb-3">What Debug Shows</h3>
+      <div className="space-y-2 text-sm text-muted-foreground">
+        <p>
+          <strong className="text-foreground">Green line</strong> - Trigger start position
+        </p>
+        <p>
+          <strong className="text-foreground">Red line</strong> - Trigger end position
+        </p>
+        <p>
+          <strong className="text-foreground">Playhead</strong> - Current scroll position
+        </p>
+      </div>
+    </div>
+  </div>
 
-- **Scrub** for scroll-linked animations
-- **Stagger** for cascading effects
-- **splitTarget** for animating child elements
-- **AnimateText** for text effects
-- **Debug** for development
-- **Optimize** for production
+  <div className="space-y-6">
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+        <span className="text-2xl">5</span>
+      </div>
+      <h2 className="text-3xl font-bold">Performance Tips</h2>
+    </div>
 
----
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="rounded-lg border bg-gradient-to-br from-green-500/5 to-emerald-500/5 p-6">
+        <h4 className="font-semibold mb-3 text-green-700">Do</h4>
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li className="flex items-start gap-2">
+            <span className="text-green-600 mt-1">✓</span>
+            <span>Use GPU properties (transform, opacity)</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-green-600 mt-1">✓</span>
+            <span>Use once={true} (default)</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-green-600 mt-1">✓</span>
+            <span>Stagger moderate amounts</span>
+          </li>
+        </ul>
+      </div>
 
-## 🔗 Related Documentation
+      <div className="rounded-lg border bg-gradient-to-br from-red-500/5 to-rose-500/5 p-6">
+        <h4 className="font-semibold mb-3 text-red-700">Avoid</h4>
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li className="flex items-start gap-2">
+            <span className="text-red-600 mt-1">✗</span>
+            <span>Animating width/height</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-red-600 mt-1">✗</span>
+            <span>Heavy stagger (>0.3s)</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <span className="text-red-600 mt-1">✗</span>
+            <span>Too many animations on page</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
-- [Animation Variants](./variants) - All available effects
-- [API Reference](./api-reference) - Complete prop documentation
-- [Getting Started](./getting-started) - Basic setup
+<div className="rounded-xl bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 p-8">
+  <h3 className="text-2xl font-bold mb-4">Continue Learning</h3>
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <a href="./variants" className="flex flex-col p-4 rounded-lg bg-background/50 hover:bg-background transition-colors border">
+      <span className="font-semibold mb-1">Animation Variants</span>
+      <span className="text-sm text-muted-foreground">Explore all presets</span>
+    </a>
+    <a href="./animation-builder-showcase" className="flex flex-col p-4 rounded-lg bg-background/50 hover:bg-background transition-colors border">
+      <span className="font-semibold mb-1">Animation Builder</span>
+      <span className="text-sm text-muted-foreground">Test and experiment</span>
+    </a>
+  </div>
+</div>
+
+</div>
